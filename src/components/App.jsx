@@ -22,14 +22,14 @@ export class App extends Component {
     this.setState({ filter: e.target.value });
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const localData = localStorage.getItem('contact');
     if (localData && JSON.parse(localData).length > 0) {
       this.setState({
         contacts: JSON.parse(localData),
       });
     }
-  };
+  }
 
   componentDidUpdate(_, prevState) {
     if (this.state.contacts !== prevState.contacts) {
