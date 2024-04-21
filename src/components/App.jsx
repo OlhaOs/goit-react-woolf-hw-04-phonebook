@@ -5,7 +5,11 @@ import Filter from 'components/Filter/Filter';
 import css from './App.module.css';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const localData = localStorage.getItem('contact');
+    return localData ? JSON.parse(localData) : [];
+  });
+
   const [filter, setFilter] = useState('');
 
   const handleAddContactBtn = newContact => {
@@ -15,13 +19,6 @@ export const App = () => {
   const handleFilterChange = e => {
     setFilter(e.target.value);
   };
-
-  useEffect(() => {
-    const localData = localStorage.getItem('contact');
-    if (localData && JSON.parse(localData).length > 0) {
-      setContacts(JSON.parse(localData));
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('contact', JSON.stringify(contacts));
